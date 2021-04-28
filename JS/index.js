@@ -5,7 +5,8 @@ const aqiNearMe = async function(){
    const resJson = await res.json();
    const city = resJson.data.city.name;
    const aqi = resJson.data.aqi;
-   console.log(`Station closest to your position is: ${city}. AQI index is: ${aqi}`);
+   const message = aqiLevel(aqi);
+   console.log(`Station closest to your position is: ${city}. AQI index is: "${aqi}: ${message}"`);
   } catch (err){
     console.error(err.message); 
   }
@@ -19,6 +20,7 @@ const aqiCity = async function (city){
     if(resJson.status == 'error'){
       throw new Error (`"${resJson.data}." Maybe look for closest station from you!`)
     }
+
     renderResJson(resJson.data.aqi);
   } catch (err) {
     console.error(err.message);
@@ -26,9 +28,27 @@ const aqiCity = async function (city){
   }
 }
 
+aqiLevel = function(aqi){
+  let message = '';
+  if(aqi > 300){
+    message = 'Hazardous!';
+  } else if (aqi > 200){
+    message = 'Very unhealthy';
+  } else if (aqi > 150){
+    message = 'Unhealthy';
+  } else if (aqi > 100){
+    message = 'Unhealthy for sensitive people';
+  }else if (aqi > 50){
+    message = 'Moderate';
+  } else {
+    message = 'Good';
+  }
+  return (message); 
+}
+
 //Render results
 renderResJson = function(aqi){
-  alert(aqi);
+  alert(aqi +': '+  aqiLevel(aqi));
   return aqi;
 }
 
