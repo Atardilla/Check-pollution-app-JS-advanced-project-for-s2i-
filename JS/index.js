@@ -28,6 +28,7 @@ const aqiCity = async function (city){
   }
 }
 
+//Associate aqi index to qualitative string level
 aqiLevel = function(aqi){
   let message = '';
   if(aqi > 300){
