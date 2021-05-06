@@ -15,6 +15,7 @@ let currentCity ='';
 searchForm.addEventListener('submit', function(e){
   e.preventDefault();
   currentCity = cityName.value;
+  resetLayout();
   aqiCity(currentCity);
 });
 
@@ -46,6 +47,7 @@ const aqiCity = async function (city){
     renderResJson(resJson.data.aqi);
   } catch (err) {
     console.error(err.message);
+    errorLayout();
     aqiNearMe();
   }
 }
@@ -84,6 +86,21 @@ renderResJson = function(aqi){
     cautionaryStatement.innerText = 'None';
   }
 }
+
+resetLayout = function(){
+  aqiIndex.innerText = `⌛`;
+    aqiLevelMessage.innerText = '⌛';
+    heathImplications.innerText = '⌛';
+    cautionaryStatement.innerText = '⌛';
+}
+
+errorLayout = function(){
+  aqiIndex.innerText = `⚠️`;
+    aqiLevelMessage.innerText = 'Error: City not found';
+    heathImplications.innerText = '💤';
+    cautionaryStatement.innerText = '💤';
+}
+
 
 //leaflet implementation
 const map = L.map('mapid').setView([51.505, -0.09], 13);
