@@ -1,0 +1,130 @@
+*{
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-III);
+}
+
+:root{
+  --font-I: "Montserrat Alternates";
+  --font-II: "Alegreya Sans SC";
+  --font-III: "Padauk";
+
+  --color-I: #d1f39de7;
+  --color-II: #f3f57881;
+  --color-II-dark: #9899603f;
+  --color-III: #231651;
+  --color-iii: #2374AB;
+
+  --white: #f5f5f5;
+  --black: #181818;
+}
+
+/*elements*/
+body{
+  background: var(--color-I);
+  background: linear-gradient(150deg, 
+  var(--color-I) 0%, 
+  var(--color-II) 100%);
+}
+
+h2{
+  font-size: 2.5em;
+  font-family: var(--font-I);
+  font-weight: 700;
+}
+
+p{
+  font-size: 1em;
+  font-family: var(--font-III);
+}
+
+h3, h4, h5, h6{
+  font-size: 1.75em;
+  line-height: 2em;
+  font-family: var(--font-II);
+}
+
+span{
+  color: var(--color-III);
+}
+
+/*ids*/
+
+#mapid { 
+  height: 250px; 
+  background-color: var(--color-III);
+  border: solid 1px red;
+}
+
+#aqi-index{
+  padding-top: 1em;
+  font-family: var(--font-I);
+  font-weight:bolder;
+}
+
+#aqi-level{
+  font-size: 1.5em;
+}
+
+/*classes*/
+.app-container{
+  margin: auto;
+  max-width: 450px;
+ 
+  text-align: center;
+  line-height: 2.5em;
+}
+
+.header{
+  padding-top: 5em;
+  background-color: var(--color-i);
+}
+
+.sec{
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-form{
+  display: flex;
+  justify-content: space-between; 
+}
+
+.search-bar{
+  padding: 0.2em 1em;
+  font-size: 1.5em;
+  border-radius: 6px;
+  background-color: var(--color-II-dark);
+}
+
+.search-input {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.search-input:focus{
+  border: none;
+}
+
+.input-submit:hover{
+  cursor: pointer;
+}
+
+.results p{
+  font-weight: bolder;
+  text-align: start;
+  color: var(--color-iii);
+}
+
+.result-item{
+  padding: 0.6em;
+}
+
+.footer{
+  background-color: var(--color-ii);
+}
