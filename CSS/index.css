@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   font-size: 14px;
-  color: var(--color-III);
+  color: var(--color-II-light);
 }
 
 :root{
@@ -11,12 +11,12 @@
   --font-III: "Padauk";
 
   --color-I: #304769;
-  --color-II: #2a5a99;
-  --color-II-dark: #9899603f;
-  --color-III: #b0c5e7;
-  --color-iii: #27E663;
+  --color-II: #518ad4;
+  --color-II-dark: #1f3f6988;
+  --color-II-light: #b0c5e7;
+  --color-III: #7feedb;
 
-  --white: #f5f5f5;
+  --white: #d2ece5;
   --black: #181818;
 }
 
@@ -32,6 +32,7 @@ h2{
   font-size: 2.5em;
   font-family: var(--font-I);
   font-weight: 700;
+  color: var(--color-III)
 }
 
 p{
@@ -46,7 +47,7 @@ h3, h4, h5, h6{
 }
 
 span{
-  color: var(--color-III);
+  color: var(--color-II-light);
 }
 
 /*ids*/
@@ -54,8 +55,8 @@ span{
 #mapid { 
   width: 90%;
   height: 250px; 
-  background-color: var(--color-III);
-  border: solid 1px red;
+  background-color: var(--color-II-light);
+  border: solid 1px var(--color-II-light);
   border-radius: 6px;
 }
 
@@ -63,10 +64,14 @@ span{
   padding-top: 1em;
   font-family: var(--font-I);
   font-weight:bolder;
+
+  color: var(--white);
 }
 
 #aqi-level{
   font-size: 1.5em;
+
+  color: var(--white);
 }
 
 /*classes*/
@@ -121,6 +126,10 @@ span{
   width: 100%;
 }
 
+.air-pollution-level{
+  margin-bottom: 2.5em;
+}
+
 .results{
   display: grid;
   place-items: center;
@@ -130,7 +139,7 @@ span{
 .results p{
   font-weight: bolder;
   text-align: start;
-  color: var(--color-iii);
+  color: var(--color-III);
 }
 
 .result-item{
