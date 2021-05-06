@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
+  <script defer src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
 
   <link rel='stylesheet' href="CSS/index.css">
 
@@ -29,32 +32,29 @@
         
         <form class="search-form">
           <div class="search-bar">
-            <input class="search-input" type="text" placeholder="Search for a city">
+            <input class="search-input input-text" type="text" name="city" placeholder="Search for a city">
             <input class="search-input input-submit" type="submit" value="🔍">
           </div>
         </form>
         
         <div class="aqi-sec">
           <div class="air-pollution-level">
-            <h3 id="aqi-index">🟡 62 🟡</h3>
-            <p id="aqi-level">Moderate</p>
+            <h3 id="aqi-index"></h3>
+            <p id="aqi-level"></p>
           </div>
           <div class="results">
-     <div id="mapid"></div>
+            <div id="mapid"></div>
             <div class="result-item health-implications">
-              <p>Health Implications: <span>Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</span></p>
+              <p>Health Implications: <span id="health-implications"></span></p>
             </div>
             <div class="result-item cautionary-statement">
-              <p>Cautionary Statement (for PM2.5): <span>Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</span></p>
+              <p>Cautionary Statement (for PM2.5): <span id="cautionary-statement"></span></p>
             </div>
           </div>
 
         </div>
     </div>
   </div>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-  crossorigin=""></script>
-<script type="text/javascript" src="JS/index.js"></script>
+<script defer type="text/javascript" src="JS/index.js"></script>
 </body>
 </html>

@@ -10,11 +10,11 @@
   --font-II: "Alegreya Sans SC";
   --font-III: "Padauk";
 
-  --color-I: #d1f39de7;
-  --color-II: #f3f57881;
+  --color-I: #304769;
+  --color-II: #2a5a99;
   --color-II-dark: #9899603f;
-  --color-III: #231651;
-  --color-iii: #2374AB;
+  --color-III: #b0c5e7;
+  --color-iii: #27E663;
 
   --white: #f5f5f5;
   --black: #181818;
@@ -52,9 +52,11 @@ span{
 /*ids*/
 
 #mapid { 
+  width: 90%;
   height: 250px; 
   background-color: var(--color-III);
   border: solid 1px red;
+  border-radius: 6px;
 }
 
 #aqi-index{
@@ -113,6 +115,16 @@ span{
 
 .input-submit:hover{
   cursor: pointer;
+}
+
+.aqi-sec{
+  width: 100%;
+}
+
+.results{
+  display: grid;
+  place-items: center;
+  width: 100%;
 }
 
 .results p{
