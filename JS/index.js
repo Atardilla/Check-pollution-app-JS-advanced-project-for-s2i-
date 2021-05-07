@@ -7,20 +7,38 @@ const aqiLevelMessage = document.getElementById('aqi-level');
 const heathImplications = document.getElementById('health-implications');
 const cautionaryStatement = document.getElementById('cautionary-statement');
 
+const divmap = document.getElementById('mapid');
+const aqiSec = document.querySelector('.aqi-sec');
+const createDivmap = document.createElement('div');
+
+
 let currentCity ='';
 
-//submit city name
-searchForm.addEventListener('submit', function(e){
-  e.preventDefault();
-  currentCity = cityName.value;
-  resetLayout();
-  aqiCity(currentCity);
-});
+// get coordinates from city name
+const getCoords = async function(city){
+  let coordinates = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${city}&key=33391df72f7d48e39576fde1f6b56d60`);
+  const res = (await coordinates).json();
+  const coords = (await res).results[0].geometry;
+  const coordsArray = Object.values(coords);
+  renderMap(coordsArray);
+ }
 
-//select all text when focus input text
-cityName.addEventListener('focus', function(){
-  cityName.select();
-})
+const renderMap =  function (coords){
+  const map = L.map('mapid').setView(coords, 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  L.tileLayer('https://tiles.aqicn.org/tiles/usepa-aqi/{z}/{x}/{y}.png?token=1a3e3d1e541f52ae2b24fc3036c9ca3902557c2d', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  
+  L.marker(coords).addTo(map);
+
+}
+
+
 
 //Returns aqi value of nearest station to user location
 const aqiNearMe = async function(){
@@ -42,10 +60,11 @@ const aqiCity = async function (city){
     const res = await fetch(`https://api.waqi.info/feed/${city}/?token=1a3e3d1e541f52ae2b24fc3036c9ca3902557c2d`);
     const resJson = await res.json();
     if(resJson.status == 'error'){
-      throw new Error (`"${resJson.data}." Maybe look for closest station from you!`)
+      divmap.innerHTML = `Can't find the place, sorry!`;
+      throw new Error (`"${resJson.data}."Maybe look for closest station from you!`)
     }
-
     renderResJson(resJson.data.aqi);
+    getCoords(city);
   } catch (err) {
     console.error(err.message);
     errorLayout();
@@ -95,23 +114,25 @@ resetLayout = function(){
   aqiLevelMessage.innerText = '⌛';
   heathImplications.innerText = '⌛';
   cautionaryStatement.innerText = '⌛';
+  
 }
 
 errorLayout = function(){
   aqiIndex.innerText = `⚠️`;
-  aqiLevelMessage.innerText = 'Error: City not found';
+  aqiLevelMessage.innerText = "Error: It seems there isn't an AQI Station in here. Check map to discover near Stations";
   heathImplications.innerText = '💤';
   cautionaryStatement.innerText = '💤';
 }
 
+//submit city name
+searchForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  currentCity = cityName.value;
+  resetLayout();
+  aqiCity(currentCity);
+});
 
-//leaflet implementation
-const map = L.map('mapid').setView([51.505, -0.09], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+//select all text when focus input text
+cityName.addEventListener('focus', function(){
+  cityName.select();
+})

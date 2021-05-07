@@ -58,6 +58,7 @@ span{
   background-color: var(--color-II-light);
   border: solid 1px var(--color-II-light);
   border-radius: 6px;
+  color: var(--black);
 }
 
 #aqi-index{
