@@ -8,7 +8,9 @@ const heathImplications = document.getElementById('health-implications');
 const cautionaryStatement = document.getElementById('cautionary-statement');
 
 let currentCity ='';
-const map = L.map('mapid');
+
+const map = L.map('mapid', { zoomControl: false });
+new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
 let marker ='';
 
 // Render results and layout for user position
@@ -29,6 +31,12 @@ const startingPoint = async function(){
 const getCoords = async function (city){
   const coordinates = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${city}&key=33391df72f7d48e39576fde1f6b56d60`);
   return coordinates;
+}
+
+// Get city from coordinates
+const getCity = async function (coords){
+  const city = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${coords[0]}+${coords[1]}&key=33391df72f7d48e39576fde1f6b56d60`);
+  return city;
 }
 
 // Recieve city name, get coordinates and render the first map
@@ -119,6 +127,7 @@ resetLayout = function(){
   cautionaryStatement.innerText = '⌛';
 }
 
+//
 errorLayout = function(){
   aqiIndex.innerText = `⚠️`;
   aqiLevelMessage.innerText = "Error: It seems there isn't an AQI Station in here. Check map to discover near Stations";
@@ -137,6 +146,31 @@ searchForm.addEventListener('submit', function(e){
 //select all text when focus input text
 cityName.addEventListener('focus', function(){
   cityName.select();
+})
+
+// Check AQI on clicked spot
+//    marker on clicked spot
+map.on('click', async function(e){
+
+  let coords =  [e.latlng.lat, e.latlng.lng];
+  marker.removeFrom(map);
+  marker = L.marker(coords);
+  marker.addTo(map);
+  map.setView(coords);
+
+//    get city name from coordinates of the clicked spot
+  const res = (await getCity(coords)).json();
+  const city = ((await res).results[0].components.county || (await res).results[0].components.state|| (await res).results[0].components.municipality );
+  const flag = ((await res).results[0].annotations.flag);
+  const formatted = ((await res).results[0].formatted);
+
+//    add popup with info
+  marker.bindPopup(`<b>${flag} - ${city}</b><br><b>${formatted}</b>`).openPopup();
+})
+
+// Close popup when click outside the map
+window.addEventListener('click', function(){
+  marker.closePopup();
 })
 
 startingPoint();
