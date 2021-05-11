@@ -168,9 +168,9 @@ map.on('click', async function(e){
   marker.bindPopup(`<b>${flag} - ${city}</b><br><b>${formatted}</b>`).openPopup();
 })
 
-// Close popup when click outside the map
-window.addEventListener('click', function(){
-  marker.closePopup();
-})
+// // Close popup when click outside the map
+// window.addEventListener('click', function(){
+//   marker.closePopup();
+// })
 
 startingPoint();
