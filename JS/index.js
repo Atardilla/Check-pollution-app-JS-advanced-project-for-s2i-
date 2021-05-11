@@ -9,7 +9,7 @@ const cautionaryStatement = document.getElementById('cautionary-statement');
 
 let currentCity ='';
 const map = L.map('mapid');
-const marker ='';
+let marker ='';
 
 // Render results and layout for user position
 const startingPoint = async function(){
@@ -42,7 +42,8 @@ const renderMap = async function(city){
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   L.tileLayer('https://tiles.aqicn.org/tiles/usepa-aqi/{z}/{x}/{y}.png?token=1a3e3d1e541f52ae2b24fc3036c9ca3902557c2d').addTo(map);
-  L.marker(coordsArr).addTo(map);
+  marker = L.marker(coordsArr);
+  marker.addTo(map);
  }
 
 // Render map and layout for city wrote by user
@@ -67,7 +68,9 @@ const renderCity = async function (city){
   let coords =  (await getCoords(city)).json();
   coordsRes = (await coords).results[0].geometry;
   coordsArr = Object.values(coordsRes);
-  L.marker(coordsArr).addTo(map);
+  marker.removeFrom(map);
+  marker = L.marker(coordsArr);
+  marker.addTo(map);
   map.setView(coordsArr);
  }
 
